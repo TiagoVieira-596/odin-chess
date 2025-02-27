@@ -3,6 +3,7 @@ class ChessBoard
 
   def initialize
     @board = Array.new(8) { {} }
+    populate_new_board
   end
 
   def layout
@@ -17,17 +18,18 @@ class ChessBoard
 
   def populate_new_board
     (0..7).each do |column|
-      [1, 6].each { |row| @board[row][column] = 'pawn' }
+      @board[1][column] = 'black_pawn'
+      @board[6][column] = 'white_pawn'
       (2..5).each { |row| @board[row][column] = 'empty' }
     end
     address = 0
     pieces_order = %w[rook knight bishop queen king]
     pieces_order.each do |piece|
-      @board[0][address] = piece
-      @board[7][address] = piece
+      @board[0][address] = "black_#{piece}"
+      @board[7][address] = "white_#{piece}"
       unless %w[queen king].include?(piece)
-        @board[0][7 - address] = piece
-        @board[7][7 - address] = piece
+        @board[0][7 - address] = "white_#{piece}"
+        @board[7][7 - address] = "black_#{piece}"
       end
       address += 1
     end
