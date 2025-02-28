@@ -1,13 +1,14 @@
 require_relative 'piece'
 class Pawn < Piece
+  # uses [x, y] and returns board notation
   def possible_moves(start, board)
     iteration = 0
     possible_moves = []
     x_moves = [0, 0, -1, 1]
     y_moves = [1, 2, 1, 1]
     while iteration < 4
-      y_position = y_moves[iteration] + start[1]
       x_position = x_moves[iteration] + start[0]
+      y_position = y_moves[iteration] + start[1]
 
       if (x_position >= 0 && x_position <= 7) && (y_position >= 0 && y_position <= 7)
         # moving 1 position ahead
@@ -26,7 +27,3 @@ class Pawn < Piece
     possible_moves
   end
 end
-
-test = Pawn.new('black', 'pawn')
-board = Array.new(8) { Array.new(8, '-') }
-print test.possible_moves([0,1], board)

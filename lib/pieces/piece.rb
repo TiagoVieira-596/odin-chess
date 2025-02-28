@@ -1,6 +1,6 @@
 class Piece
   attr_accessor :was_moved
-  def initialize(color, name)
+  def initialize(color = 'black', name)
     @color = color
     @name = name
     @was_moved = false
