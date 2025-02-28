@@ -1,4 +1,4 @@
-require-relative 'piece'
+require_relative 'piece'
 class Knight < Piece
   def possible_moves(start)
     iteration = 0
@@ -10,8 +10,7 @@ class Knight < Piece
       y_position = y_moves[iteration] + start[1]
 
       if (x_position >= 0 && x_position <= 7) && (y_position >= 0 && y_position <= 7)
-        possible_moves << [x_position,
-                           y_position]
+        possible_moves << [x_position, y_position]
       end
       iteration += 1
     end
