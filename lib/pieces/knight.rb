@@ -1,5 +1,7 @@
 require_relative 'piece'
 class Knight < Piece
+  # uses and returns [x, y] board notation
+  #the board class uses [y, x] access
   def possible_moves(start)
     iteration = 0
     possible_moves = []

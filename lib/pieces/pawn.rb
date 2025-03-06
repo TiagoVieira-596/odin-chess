@@ -1,6 +1,7 @@
 require_relative 'piece'
 class Pawn < Piece
-  # uses [x, y] and returns board notation
+  # uses and returns [x, y] board notation
+  #the board class uses [y, x] access
   def possible_moves(start, board)
     iteration = 0
     possible_moves = []
@@ -15,7 +16,7 @@ class Pawn < Piece
         if iteration == 0
           possible_moves << [x_position, y_position]
         # moving to eat a piece
-        elsif iteration >= 2 && board[x_position][y_position] != 'empty'
+        elsif iteration >= 2 && board[y_position][x_position] != 'empty'
           possible_moves << [x_position, y_position]
         # pawn wasn't moved and it's possible to go ahead
         elsif iteration == 1 && !was_moved
