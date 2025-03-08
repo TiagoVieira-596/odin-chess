@@ -30,10 +30,3 @@ class Pawn < Piece
     possible_moves
   end
 end
-board = Array.new(8) { {} }
-board[0][4] = Pawn.new('pawn')
-board[1][4] = Pawn.new('pawn')
-board[1][5] = Pawn.new('pawn')
-board[1][3] = 'empty'
-board[2][4] = 'empty'
-p board[0][4].possible_moves([4, 0], board)

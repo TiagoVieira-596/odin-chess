@@ -35,7 +35,3 @@ class ChessBoard
     end
   end
 end
-
-game = ChessBoard.new
-game.populate_new_board
-print game.layout
