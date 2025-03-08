@@ -21,14 +21,15 @@ end
 describe Knight do
   context 'finds the correct possible moves for the knight' do
     let(:knight_moves) { Knight.new('knight') }
+    empty_knight_board = Array.new(8) { Array.new(8, 'empty') }
 
     it 'finds all possible 8 moves' do
       expect(knight_moves.possible_moves([3,
-                                          3])).to match_array([[5, 2], [5, 4], [4, 1], [4, 5], [2, 1], [2, 5], [1, 2],
-                                                               [1, 4]])
+                                          3], empty_knight_board)).to match_array([[5, 2], [5, 4], [4, 1], [4, 5], [2, 1], [2, 5], [1, 2],
+                                                                                   [1, 4]])
     end
     it 'does not show moves off the board_castle' do
-      expect(knight_moves.possible_moves([0, 0])).to match_array([[1, 2], [2, 1]])
+      expect(knight_moves.possible_moves([0, 0], empty_knight_board)).to match_array([[1, 2], [2, 1]])
     end
   end
 end
@@ -36,17 +37,17 @@ end
 describe Pawn do
   context 'finds the correct possible moves for the pawn' do
     let(:pawn_moves) { Pawn.new('pawn') }
-    empty_board_castle = Array.new(8) { Array.new(8, 'empty') }
-    full_board_castle = Array.new(8) { Array.new(8, '-') }
+    empty_board_pawn = Array.new(8) { Array.new(8, 'empty') }
+    full_board_pawn = Array.new(8) { Array.new(8, Pawn.new('white', 'pawn')) }
 
-    it 'finds only forward moves with an empty board_castle' do
-      expect(pawn_moves.possible_moves([1, 1], empty_board_castle)).to match_array([[1, 2], [1, 3]])
+    it 'finds only forward moves with an empty board' do
+      expect(pawn_moves.possible_moves([1, 1], empty_board_pawn)).to match_array([[1, 2], [1, 3]])
     end
-    it 'does not show moves off the board_castle with a full board_castle' do
-      expect(pawn_moves.possible_moves([0, 0], full_board_castle)).to match_array([[0, 2], [0, 1], [1, 1]])
+    it 'does not show moves off the board with a full board' do
+      expect(pawn_moves.possible_moves([0, 0], full_board_pawn)).to match_array([[0, 2], [0, 1], [1, 1]])
     end
-    it 'finds all possible 4 moves with a full board_castle' do
-      expect(pawn_moves.possible_moves([1, 1], full_board_castle)).to match_array([[0, 2], [1, 2], [2, 2], [1, 3]])
+    it 'finds all possible 4 moves with a full board' do
+      expect(pawn_moves.possible_moves([1, 1], full_board_pawn)).to match_array([[0, 2], [1, 2], [2, 2], [1, 3]])
     end
   end
 end
@@ -99,7 +100,7 @@ describe King do
   end
   context 'finds possible moves' do
     let(:king_moves) { King.new('king') }
-    board_moves = Array.new(8) { {} }
+    board_moves = Array.new(8) { Array.new(8, 'empty') }
     board_moves[0][4] = King.new('black', 'king')
 
     it 'does not find moves off the board' do

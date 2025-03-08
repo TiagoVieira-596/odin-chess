@@ -11,9 +11,10 @@ class King < Piece
     while iteration < 8
       x_position = x_moves[iteration] + start[0]
       y_position = y_moves[iteration] + start[1]
+      piece_at_address = board[y_position][x_position]
 
       if (x_position >= 0 && x_position <= 7) && (y_position >= 0 && y_position <= 7) &&
-         !(board[y_position][x_position] != 'empty' && board[y_position][x_position].color == color)
+         !(piece_at_address != 'empty' && piece_at_address.color == color)
           possible_moves << [x_position, y_position]
       end
       iteration += 1
