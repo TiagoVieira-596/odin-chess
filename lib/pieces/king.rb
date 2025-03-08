@@ -2,7 +2,7 @@ require_relative 'piece'
 require_relative 'tower'
 class King < Piece
   # uses and returns [x, y] board notation
-  #the board class uses [y, x] access
+  # the board class uses [y, x] access
   def possible_moves(start, board)
     iteration = 0
     possible_moves = []
@@ -12,8 +12,9 @@ class King < Piece
       x_position = x_moves[iteration] + start[0]
       y_position = y_moves[iteration] + start[1]
 
-      if (x_position >= 0 && x_position <= 7) && (y_position >= 0 && y_position <= 7)
-        possible_moves << [x_position, y_position]
+      if (x_position >= 0 && x_position <= 7) && (y_position >= 0 && y_position <= 7) &&
+         !(board[y_position][x_position] != 'empty' && board[y_position][x_position].color == color)
+          possible_moves << [x_position, y_position]
       end
       iteration += 1
     end
@@ -30,18 +31,14 @@ class King < Piece
     unless board[start[1]][start[0] + 3] == 'empty' || board[start[1]][start[0] + 3].was_moved
       right_rock_possible = true
       (1..2).each do |space|
-        unless board[start[1]][start[0] + space] == 'empty'
-          right_rock_possible = false
-        end
+        right_rock_possible = false unless board[start[1]][start[0] + space] == 'empty'
       end
     end
 
     unless board[start[1]][start[0] - 4] == 'empty' || board[start[1]][start[0] - 4].was_moved
       left_rock_possible = true
       (1..3).each do |space|
-        unless board[start[1]][start[0] - space] == 'empty'
-          left_rock_possible = false
-        end
+        left_rock_possible = false unless board[start[1]][start[0] - space] == 'empty'
       end
     end
     possible_castle << [start[1], start[0] + 2] if right_rock_possible
