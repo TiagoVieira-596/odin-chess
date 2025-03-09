@@ -9,15 +9,15 @@ class ChessBoard
   end
 
   def layout
-    layout = "+---+---+---+---+---+---+---+---+\n"
+    layout = "+--+--+--+--+--+--+--+--+\n"
     board.reverse.each do |row|
       row_string = ''
       row.sort.to_h.each_value do |piece|
         piece = ' ' if piece == 'empty'
-        row_string += "| #{piece} "
+        row_string += "|#{piece} "
       end
       layout += "#{row_string}|\n"
-      layout += "+---+---+---+---+---+---+---+---+\n"
+      layout += "+--+--+--+--+--+--+--+--+\n"
     end
     layout
   end
