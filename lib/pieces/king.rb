@@ -1,5 +1,5 @@
 require_relative 'piece'
-require_relative 'tower'
+require_relative 'rook'
 class King < Piece
   # uses and returns [x, y] board notation
   # the board class uses [y, x] access

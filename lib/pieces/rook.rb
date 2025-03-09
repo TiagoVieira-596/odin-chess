@@ -1,5 +1,5 @@
 require_relative 'piece'
-class Tower < Piece
+class Rook < Piece
   # uses and returns [x, y] board notation
   # the board class uses [y, x] access
   def possible_moves(start, board)
