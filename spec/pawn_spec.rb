@@ -10,10 +10,23 @@ describe Pawn do
       expect(pawn_moves.possible_moves([1, 1], empty_board_pawn)).to match_array([[1, 2], [1, 3]])
     end
     it 'does not show moves off the board with a full board' do
-      expect(pawn_moves.possible_moves([0, 0], full_board_pawn)).to match_array([[0, 2], [0, 1], [1, 1]])
+      expect(pawn_moves.possible_moves([0, 0], full_board_pawn)).to match_array([[1, 1]])
     end
-    it 'finds all possible 4 moves with a full board' do
-      expect(pawn_moves.possible_moves([1, 1], full_board_pawn)).to match_array([[0, 2], [1, 2], [2, 2], [1, 3]])
+    it 'finds the 2 taking moves with a full board' do
+      expect(pawn_moves.possible_moves([1, 1], full_board_pawn)).to match_array([[0, 2], [2, 2]])
+    end
+  end
+  context 'gets blocked by other pieces' do
+    let(:pawn_blocked_moves) { Pawn.new('pawn') }
+    full_board_black = Array.new(8) { Array.new(8, Pawn.new('pawn')) }
+    full_board_white = Array.new(8) { Array.new(8, Pawn.new('white', 'pawn')) }
+
+    it "can't move when surrounded by pieces from the same color" do
+      expect(pawn_blocked_moves.possible_moves([4, 4], full_board_black)).to match_array([])
+    end
+    it 'can only move to were there are pieces of the same color and not further' do
+      result_array = [[5, 5], [3, 5]]
+      expect(pawn_blocked_moves.possible_moves([4, 4], full_board_white)).to match_array(result_array)
     end
   end
 end

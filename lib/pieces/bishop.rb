@@ -1,6 +1,8 @@
 require_relative 'piece'
 class Bishop < Piece
   def possible_moves(start, board)
+    # uses and returns [x, y] board notation
+    # the board class uses [y, x] access
     possible_moves = []
 
     # check upward right diagonal
@@ -52,7 +54,7 @@ class Bishop < Piece
     prev_row = start[1]
     prev_column = start[0]
     iteration = 0
-    while prev_row - 1 >= 0 && prev_column + 1 >= 0
+    while prev_row - 1 >= 0 && prev_column - 1 >= 0
       iteration += 1
       prev_row = start[1] - iteration
       prev_column = start[0] - iteration
@@ -65,4 +67,3 @@ class Bishop < Piece
     possible_moves
   end
 end
-

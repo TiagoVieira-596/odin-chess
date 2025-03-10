@@ -15,13 +15,13 @@ class Pawn < Piece
       if (x_position >= 0 && x_position <= 7) && (y_position >= 0 && y_position <= 7) &&
          !(piece_at_address != 'empty' && piece_at_address.color == color)
         # moving 1 position ahead
-        if iteration.zero?
+        if iteration.zero? && piece_at_address == 'empty'
           possible_moves << [x_position, y_position]
         # moving to eat a piece
         elsif iteration >= 2 && piece_at_address != 'empty'
           possible_moves << [x_position, y_position]
         # pawn wasn't moved and it's possible to go ahead
-        elsif iteration == 1 && !was_moved
+        elsif iteration == 1 && !was_moved && piece_at_address == 'empty'
           possible_moves << [x_position, y_position]
         end
       end
