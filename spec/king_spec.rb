@@ -12,7 +12,7 @@ describe King do
       end
       board_castle[0][7] = King.new('black', 'king')
       board_castle[0][0] = King.new('black', 'king')
-      expect(king_castles.possible_castle([4, 0], board_castle)).to match_array([[0, 6], [0, 1]])
+      expect(king_castles.possible_castle([4, 0], board_castle)).to match_array([[6, 0], [1, 0]])
     end
     it 'finds no moves when the spaces are empty and the kings have been moved' do
       (1..6).each do |space|
@@ -43,7 +43,7 @@ describe King do
       board_castle[0][4] = King.new('black', 'king')
       board_castle[0][7] = King.new('black', 'king')
       board_castle[0][0] = 'empty'
-      expect(king_castles.possible_castle([4, 0], board_castle).flatten).to match_array([0, 6])
+      expect(king_castles.possible_castle([4, 0], board_castle).flatten).to match_array([6, 0])
     end
   end
   context 'finds possible moves' do
@@ -63,7 +63,7 @@ describe King do
         board_moves[0][space] = 'empty' unless space == 4
       end
       board_moves[0][7] = King.new('king')
-      result_array = [[3, 0], [3, 1], [4, 1], [5, 1], [5, 0], [0, 6]]
+      result_array = [[3, 0], [3, 1], [4, 1], [5, 1], [5, 0], [6, 0]]
       expect(king_moves.possible_moves([4, 0], board_moves)).to match_array(result_array)
     end
     it 'finds all the 8 possible moves' do

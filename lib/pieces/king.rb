@@ -11,12 +11,13 @@ class King < Piece
     while iteration < 8
       x_position = x_moves[iteration] + start[0]
       y_position = y_moves[iteration] + start[1]
-      piece_at_address = board[y_position][x_position]
-
-      if (x_position >= 0 && x_position <= 7) && (y_position >= 0 && y_position <= 7) &&
-         !(piece_at_address != 'empty' && piece_at_address.color == color)
-          possible_moves << [x_position, y_position]
+      unless (x_position >= 0 && x_position <= 7) && (y_position >= 0 && y_position <= 7)
+        iteration += 1
+        next
       end
+      piece = board[y_position][x_position]
+
+      possible_moves << [x_position, y_position] unless piece != 'empty' && piece.color == color
       iteration += 1
     end
     possible_castle(start, board).each { |castle| possible_moves << castle }
@@ -42,8 +43,8 @@ class King < Piece
         left_rock_possible = false unless board[start[1]][start[0] - space] == 'empty'
       end
     end
-    possible_castle << [start[1], start[0] + 2] if right_rock_possible
-    possible_castle << [start[1], start[0] - 3] if left_rock_possible
+    possible_castle << [start[0] + 2, start[1]] if right_rock_possible
+    possible_castle << [start[0] - 3, start[1]] if left_rock_possible
     possible_castle
   end
 end

@@ -6,14 +6,17 @@ class Pawn < Piece
     iteration = 0
     possible_moves = []
     x_moves = [0, 0, -1, 1]
-    y_moves = [1, 2, 1, 1]
+    color == 'black' ? (y_moves = [1, 2, 1, 1]) : (y_moves = [-1, -2, -1, -1])
     while iteration < 4
       x_position = x_moves[iteration] + start[0]
       y_position = y_moves[iteration] + start[1]
+      unless (x_position >= 0 && x_position <= 7) && (y_position >= 0 && y_position <= 7)
+        iteration += 1
+        next
+      end
       piece_at_address = board[y_position][x_position]
 
-      if (x_position >= 0 && x_position <= 7) && (y_position >= 0 && y_position <= 7) &&
-         !(piece_at_address != 'empty' && piece_at_address.color == color)
+      unless piece_at_address != 'empty' && piece_at_address.color == color
         # moving 1 position ahead
         if iteration.zero? && piece_at_address == 'empty'
           possible_moves << [x_position, y_position]

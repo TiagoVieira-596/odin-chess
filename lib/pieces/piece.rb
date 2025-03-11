@@ -1,6 +1,6 @@
 class Piece
   attr_accessor :was_moved
-  attr_reader :color
+  attr_reader :color, :name
 
   def initialize(color = 'black', name)
     @color = color

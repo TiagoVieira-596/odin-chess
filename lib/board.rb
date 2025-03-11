@@ -1,11 +1,12 @@
 Dir.glob(File.join(__dir__, 'pieces', '*.rb')).each { |file| require_relative file }
 
 class ChessBoard
-  attr_accessor :board
+  attr_accessor :board, :moves_made
 
   def initialize
     @board = Array.new(8) { {} }
     populate_new_board
+    @moves_made = 0
   end
 
   def layout
@@ -20,6 +21,12 @@ class ChessBoard
       layout += "+--+--+--+--+--+--+--+--+\n"
     end
     layout
+  end
+
+  def all_pieces(&block)
+    @board.each do |row|
+      row.each_value(&block)
+    end
   end
 
   def populate_new_board
@@ -41,6 +48,3 @@ class ChessBoard
     end
   end
 end
-
-board = ChessBoard.new
-print board.layout

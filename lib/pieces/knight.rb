@@ -10,12 +10,13 @@ class Knight < Piece
     while iteration < 8
       x_position = x_moves[iteration] + start[0]
       y_position = y_moves[iteration] + start[1]
+      unless (x_position >= 0 && x_position <= 7) && (y_position >= 0 && y_position <= 7)
+        iteration += 1
+        next
+      end
       piece = board[y_position][x_position]
 
-      if (x_position >= 0 && x_position <= 7) && (y_position >= 0 && y_position <= 7) &&
-         !(piece != 'empty' && piece.color == color)
-          possible_moves << [x_position, y_position]
-      end
+      possible_moves << [x_position, y_position] unless piece != 'empty' && piece.color == color
       iteration += 1
     end
     possible_moves
