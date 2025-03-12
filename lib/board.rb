@@ -29,6 +29,19 @@ class ChessBoard
     end
   end
 
+  def find_pieces_addresses(piece, color)
+    piece_class = Object.const_get(piece.downcase.capitalize)
+    piece_addresses = []
+    @board.each_with_index do |row, index|
+      column_index = 0
+      row.sort.to_h.each_value do |piece|
+        piece_addresses << [column_index, index] if (piece.is_a? piece_class) && piece.color == color
+        column_index += 1
+      end
+    end
+    piece_addresses
+  end
+
   def populate_new_board
     (0..7).each do |column|
       @board[1][column] = Pawn.new('black', 'pawn')

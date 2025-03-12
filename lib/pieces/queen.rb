@@ -4,7 +4,7 @@ require_relative 'bishop'
 class Queen < Piece
   # uses and returns [x, y] board notation
   # the board class uses [y, x] access
-  def possible_moves(start, board)
+  def possible_moves(start = address, board)
     possible_moves = []
     rook_instance = Rook.new(color.to_s, 'rook')
     bishop_instance = Bishop.new(color.to_s, 'bishop')

@@ -3,7 +3,7 @@ require_relative 'rook'
 class King < Piece
   # uses and returns [x, y] board notation
   # the board class uses [y, x] access
-  def possible_moves(start, board)
+  def possible_moves(start = address, board)
     iteration = 0
     possible_moves = []
     x_moves = [-1, -1, 0, 1, 1, 1, 0, -1]

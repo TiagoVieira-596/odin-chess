@@ -2,10 +2,12 @@ class Piece
   attr_accessor :was_moved
   attr_reader :color, :name
 
-  def initialize(color = 'black', name)
+  def initialize(color = 'black', address = [0, 0], name)
     @color = color
     @name = name
     @was_moved = false
+    # uses [x, y] notation
+    @address = address
   end
 
   def to_s

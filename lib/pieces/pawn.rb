@@ -2,7 +2,7 @@ require_relative 'piece'
 class Pawn < Piece
   # uses and returns [x, y] board notation
   # the board class uses [y, x] access
-  def possible_moves(start, board)
+  def possible_moves(start = address, board)
     iteration = 0
     possible_moves = []
     x_moves = [0, 0, -1, 1]

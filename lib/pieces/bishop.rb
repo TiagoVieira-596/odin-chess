@@ -1,6 +1,6 @@
 require_relative 'piece'
 class Bishop < Piece
-  def possible_moves(start, board)
+  def possible_moves(start = address, board)
     # uses and returns [x, y] board notation
     # the board class uses [y, x] access
     possible_moves = []
