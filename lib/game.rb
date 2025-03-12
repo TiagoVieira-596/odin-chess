@@ -1,26 +1,29 @@
 require_relative 'board'
 class Game
   def make_move(current_game, start, goal)
-    piece_at_address = current_game.board[start[1]][start[0]]
+    moving_piece = current_game.board[start[1]][start[0]]
     # make the move if the chosen address is not empty and the move is legal
-    if piece_at_address != 'empty' && piece_at_address.possible_moves(start, current_game.board).include?(goal)
+    if moving_piece != 'empty' && moving_piece.possible_moves(current_game.board).include?(goal)
       # promote if a pawn reaches the end of the board
-      if (goal[1] == 7 || goal[1].zero?) && (piece_at_address.is_a? Pawn)
-        piece_at_address = promotion_choice(piece_at_address.color)
+      if (goal[1] == 7 || goal[1].zero?) && (moving_piece.is_a? Pawn)
+        moving_piece = promotion_choice(moving_piece.color)
       end
 
       # change the board according to the move made and change the pieces states
-      current_game.board[goal[1]][goal[0]] = piece_at_address
+      current_game.board[goal[1]][goal[0]] = moving_piece
+      moving_piece.address = goal
       current_game.board[start[1]][start[0]] = 'empty'
-      piece_at_address.was_moved = true
+      moving_piece.was_moved = true
       current_game.moves_made += 1
 
       # in case of the castle special move
-      if goal == ([start[0] + 2, start[1]]) && (piece_at_address.is_a? King)
-        current_game.board[goal[1]][goal[0] - 1] = Rook.new(piece_at_address.color, 'rook')
+      if goal == ([start[0] + 2, start[1]]) && (moving_piece.is_a? King)
+        current_game.board[goal[1]][goal[0] - 1] = Rook.new(moving_piece.color, 'rook')
+        current_game.board[goal[1]][goal[0] - 1].address = [goal[1], goal[0] - 1]
         current_game.board[goal[1]][goal[0] + 1] = 'empty'
-      elsif (goal == [start[0] - 3, start[1]]) && (piece_at_address.is_a? King)
-        current_game.board[goal[1]][goal[0] + 1] = Rook.new(piece_at_address.color, 'rook')
+      elsif (goal == [start[0] - 3, start[1]]) && (moving_piece.is_a? King)
+        current_game.board[goal[1]][goal[0] + 1] = Rook.new(moving_piece.color, 'rook')
+        current_game.board[goal[1]][goal[0] + 1].address = [goal[1], goal[0] + 1]
         current_game.board[goal[1]][goal[0] - 1] = 'empty'
       end
 
@@ -51,27 +54,14 @@ class Game
     yield(input)
   end
 
-  def check?(color, board)
-    king_address = []
-    board.each_with_index do |row, index|
-      column_index = 0
-      row.each_value do |piece|
-        king_address = [column_index, index] if (piece.is_a? King) && piece.color == color
-        column_index += 1
+  def check?(color, current_game)
+    king_address = current_game.find_pieces_addresses('king', color)[0]
+    king_in_check = false
+    current_game.all_pieces do |piece|
+      if piece != 'empty' && piece.possible_moves(current_game.board).include?(king_address) && piece.color != color
+        king_in_check = true
       end
     end
-    king_address
+    king_in_check
   end
 end
-
-board = ChessBoard.new
-print board.layout
-king_address = []
-board.board.each_with_index do |row, index|
-  column_index = 0
-  row.sort.to_h.each_value do |piece|
-    king_address << [column_index, index] if (piece.is_a? King) && piece.color == 'white'
-    column_index += 1
-  end
-end
-p king_address

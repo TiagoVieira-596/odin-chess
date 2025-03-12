@@ -24,8 +24,8 @@ class ChessBoard
   end
 
   def all_pieces(&block)
-    @board.each do |row|
-      row.each_value(&block)
+    @board.reverse.each do |row|
+      row.sort.to_h.each_value(&block)
     end
   end
 
@@ -44,18 +44,18 @@ class ChessBoard
 
   def populate_new_board
     (0..7).each do |column|
-      @board[1][column] = Pawn.new('black', 'pawn')
-      @board[6][column] = Pawn.new('white', 'pawn')
+      @board[1][column] = Pawn.new('black', [column, 1], 'pawn')
+      @board[6][column] = Pawn.new('white', [column, 6], 'pawn')
       (2..5).each { |row| @board[row][column] = 'empty' }
     end
     address = 0
     pieces_order = [Rook, Knight, Bishop, Queen, King]
     pieces_order.each do |piece|
-      @board[0][address] = piece.new('black', piece.to_s.downcase)
-      @board[7][address] = piece.new('white', piece.to_s.downcase)
+      @board[0][address] = piece.new('black', [address, 0], piece.to_s.downcase)
+      @board[7][address] = piece.new('white', [address, 7], piece.to_s.downcase)
       unless [Queen, King].include?(piece)
-        @board[0][7 - address] = piece.new('black', piece.to_s.downcase)
-        @board[7][7 - address] = piece.new('white', piece.to_s.downcase)
+        @board[0][7 - address] = piece.new('black', [7 - address, 0], piece.to_s.downcase)
+        @board[7][7 - address] = piece.new('white', [7 - address, 7], piece.to_s.downcase)
       end
       address += 1
     end
