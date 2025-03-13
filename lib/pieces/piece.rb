@@ -4,10 +4,10 @@ class Piece
 
   def initialize(color = 'black', address = [0, 0], name)
     @color = color
+    # uses [x, y] notation
     @address = address
     @name = name
     @was_moved = false
-    # uses [x, y] notation
   end
 
   def to_s
