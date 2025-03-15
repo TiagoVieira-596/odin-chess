@@ -2,7 +2,7 @@ require_relative '../lib/pieces/queen'
 require_relative '../lib/board'
 describe Queen do
   context 'finds all possible moves with an empty board' do
-    let(:queen_empty_moves) { Queen.new('queen') }
+    let(:queen_empty_moves) { Queen.new }
     empty_board_queen = Array.new(8) { Array.new(8, 'empty') }
 
     it 'finds the the vertical upward, diagonal right upward and horizontal right lines' do
@@ -27,9 +27,9 @@ describe Queen do
     end
   end
   context 'gets blocked by other pieces' do
-    let(:queen_blocked_moves) { Queen.new('queen') }
-    full_board_black = Array.new(8) { Array.new(8, Queen.new('queen')) }
-    full_board_white = Array.new(8) { Array.new(8, Queen.new('white', 'queen')) }
+    let(:queen_blocked_moves) { Queen.new }
+    full_board_black = Array.new(8) { Array.new(8, Queen.new) }
+    full_board_white = Array.new(8) { Array.new(8, Queen.new('white')) }
 
     it "can't move when surrounded by pieces from the same color" do
       expect(queen_blocked_moves.possible_moves([4, 4], full_board_black)).to match_array([])

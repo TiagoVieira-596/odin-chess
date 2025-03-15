@@ -24,8 +24,9 @@ class King < Piece
     possible_moves.delete_if { |address| address == [] }
   end
 
-  def possible_castle(start, board)
-    return [] if board[start[1]][start[0]].was_moved || (start != [4, 0] && start != [4, 7])
+  def possible_castle(start = @address, board)
+    moving_king = board[start[1]][start[0]]
+    return [] if moving_king == 'empty' || moving_king.was_moved || (start != [4, 0] && start != [4, 7])
 
     possible_castle = []
     left_rock_possible = false

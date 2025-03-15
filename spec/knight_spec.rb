@@ -2,7 +2,7 @@ require_relative '../lib/pieces/knight'
 require_relative '../lib/board'
 describe Knight do
   context 'finds the correct possible moves for the knight' do
-    let(:knight_moves) { Knight.new('knight') }
+    let(:knight_moves) { Knight.new }
     empty_knight_board = Array.new(8) { Array.new(8, 'empty') }
 
     it 'finds all possible 8 moves' do
@@ -14,8 +14,8 @@ describe Knight do
     end
   end
   context 'gets blocked by other pieces' do
-    let(:knight_blocked_moves) { Knight.new('knight') }
-    full_board_black = Array.new(8) { Array.new(8, Knight.new('knight')) }
+    let(:knight_blocked_moves) { Knight.new }
+    full_board_black = Array.new(8) { Array.new(8, Knight.new) }
 
     it "can't move when surrounded by pieces from the same color" do
       expect(knight_blocked_moves.possible_moves([4, 4], full_board_black)).to match_array([])

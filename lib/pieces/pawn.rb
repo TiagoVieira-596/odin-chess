@@ -29,8 +29,8 @@ class Pawn < Piece
         end
       end
       if iteration >= 2 && !last_move.nil? &&
-         (last_move[0] == [start[0] + 1, start[1] + 2] || last_move[0] == [start[0] - 1, start[1] + 2]) &&
-         (last_move[1] == [start[0] + 1, start[1]] || last_move[1] == [start[0] - 1, start[1]]) &&
+         last_move[0] == [start[0] + x_moves[iteration], start[1] + y_moves[1]] &&
+         last_move[1] == [start[0] + x_moves[iteration], start[1]] &&
          (last_move[2].is_a? Pawn)
         possible_moves << [x_position, y_position]
       end

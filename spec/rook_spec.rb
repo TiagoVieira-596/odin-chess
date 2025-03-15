@@ -2,7 +2,7 @@ require_relative '../lib/pieces/rook'
 require_relative '../lib/board'
 describe Rook do
   context 'finds all possible moves with an empty board' do
-    let(:rook_empty_moves) { Rook.new('rook') }
+    let(:rook_empty_moves) { Rook.new }
     empty_board_rook = Array.new(8) { Array.new(8, 'empty') }
 
     it 'finds the right and upward lines' do
@@ -17,9 +17,9 @@ describe Rook do
     end
   end
   context 'gets blocked by other pieces' do
-    let(:rook_blocked_moves) { Rook.new('rook') }
-    full_board_black = Array.new(8) { Array.new(8, Rook.new('rook')) }
-    full_board_white = Array.new(8) { Array.new(8, Rook.new('white', 'rook')) }
+    let(:rook_blocked_moves) { Rook.new }
+    full_board_black = Array.new(8) { Array.new(8, Rook.new) }
+    full_board_white = Array.new(8) { Array.new(8, Rook.new('white')) }
 
     it "can't move when surrounded by pieces from the same color" do
       expect(rook_blocked_moves.possible_moves([4, 4], full_board_black)).to match_array([])
